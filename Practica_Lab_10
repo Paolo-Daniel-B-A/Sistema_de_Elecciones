@@ -1,0 +1,47 @@
+Prácticas de Codificación Legible Aplicadas:
+1.-Uso de comentarios significativos: Los comentarios explican la función del método y el valor de retorno esperado, facilitando la comprensión del código.
+
+2.-Nombres de métodos descriptivos: El nombre del método "encontrarCandidatoMasVotado" indica claramente su propósito y lo que devuelve.
+
+3.-Uso de const y let: Las variables locales utilizan const cuando no cambian su valor y let cuando se necesita reasignar.
+
+4.-Claridad en las variables: Las variables tienen nombres descriptivos, lo que facilita la comprensión del código.
+
+5.-Evitar redundancia en el bucle: En lugar de realizar el filtrado en cada iteración del bucle, se puede almacenar el valor de "votosCandidato" en una variable.
+
+6.-Minimizar la complejidad: Se evitan estructuras de control complejas innecesarias para mantener el código más legible y comprensible.
+
+7.-Uso de espaciado: Se utilizan espacios en blanco de manera consistente para mejorar la legibilidad del código.
+
+#CODIGO: 
+
+namespace Dominio.Votacion.entities {
+  class Voto {
+    // ... (código de la clase Voto)
+
+    /**
+     * Método para encontrar el candidato más votado.
+     * @param votos Array de votos.
+     * @returns El ID del candidato más votado o null si no hay votos.
+     */
+    static encontrarCandidatoMasVotado(votos: Voto[]): number | null {
+      if (votos.length === 0) {
+        return null;
+      }
+
+      let candidatoMasVotado = votos[0].idCandidato;
+      let votosMasAltos = 0;
+
+      for (const voto of votos) {
+        const votosCandidato = votos.filter((v) => v.idCandidato === voto.idCandidato).length;
+
+        if (votosCandidato > votosMasAltos) {
+          votosMasAltos = votosCandidato;
+          candidatoMasVotado = voto.idCandidato;
+        }
+      }
+
+      return candidatoMasVotado;
+    }
+  }
+}
