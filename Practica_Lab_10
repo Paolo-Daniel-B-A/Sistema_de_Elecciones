@@ -17,13 +17,11 @@ Prácticas de Codificación Legible Aplicadas:
 
 namespace Dominio.Votacion.entities {
   class Voto {
-    // ... (código de la clase Voto)
+    private idVoto: number;
+    private idVotante: number;
+    private idCandidato: number;
+    private validado: boolean;
 
-    /**
-     * Método para encontrar el candidato más votado.
-     * @param votos Array de votos.
-     * @returns El ID del candidato más votado o null si no hay votos.
-     */
     static encontrarCandidatoMasVotado(votos: Voto[]): number | null {
       if (votos.length === 0) {
         return null;
