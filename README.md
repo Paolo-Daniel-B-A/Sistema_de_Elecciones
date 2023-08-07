@@ -7,3 +7,5 @@
 - Jesus Bruno Chancayauri Soncco
 - Christian Pardavé Espinoza
 - Saul Arturo Condori Machaca
+- Paolo Daniel Benavente Aguirre
+
