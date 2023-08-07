@@ -1,0 +1,95 @@
+//1.1. Responsabilidad Única (SRP): Hemos agregado un constructor a la clase Voto para que sea responsable 
+//de inicializar los atributos de la clase. Ahora, la clase tiene una única responsabilidad: representar 
+//un voto con sus atributos y proporcionar métodos para operar sobre ellos.
+
+//1.2. Open/Closed (OCP): Hemos agregado un nuevo método esValido() para verificar si un voto es válido. 
+//Al hacer esto, hemos extendido la funcionalidad de la clase sin modificar su implementación existente. 
+//Esto permite agregar más funcionalidades a la clase sin cambiar su código original.
+
+namespace Dominio.Votacion.entities {
+  class Voto {
+    private idVoto: number;
+    private idVotante: number;
+    private idCandidato: number;
+    private validado: boolean;
+
+    constructor(idVoto: number, idVotante: number, idCandidato: number, validado: boolean) {
+      this.idVoto = idVoto;
+      this.idVotante = idVotante;
+      this.idCandidato = idCandidato;
+      this.validado = validado;
+    }
+
+    // Método para verificar si el voto es válido.
+    public esValido(): boolean {
+      return this.validado;
+    }
+
+    // Método para obtener el ID del candidato más votado.
+    public static encontrarCandidatoMasVotado(votos: Voto[]): number | null {
+      if (votos.length === 0) {
+        return null;
+      }
+
+      let candidatoMasVotado = votos[0].idCandidato;
+      let votosMasAltos = 0;
+
+      for (const voto of votos) {
+        const votosCandidato = votos.filter((v) => v.idCandidato === voto.idCandidato).length;
+
+        if (votosCandidato > votosMasAltos) {
+          votosMasAltos = votosCandidato;
+          candidatoMasVotado = voto.idCandidato;
+        }
+      }
+
+      return candidatoMasVotado;
+    }
+  }
+}
+
+//2.1. Responsabilidad Única (SRP): Hemos agregado un constructor a la clase Votante para que sea 
+//responsable de inicializar los atributos específicos de un votante. La clase ahora tiene 
+//una única responsabilidad: representar un votante con sus atributos.
+
+//2.2. Sustitución de Liskov (LSP): La clase Votante extiende la clase Usuario, lo que significa 
+//que un objeto Votante puede sustituir a un objeto Usuario sin afectar la integridad del programa. 
+//Hemos asegurado que los parámetros requeridos por el constructor de la clase base Usuario sean 
+//pasados correctamente en el constructor de la clase Votante.
+
+namespace Dominio.Votacion.entities {
+  class Votante extends Usuario {
+    private fechaNacimiento: string;
+    private genero: string;
+    private ocupacion: string;
+
+    /**
+     * Constructor de la clase Votante.
+     * @param nombre Nombre del votante.
+     * @param edad Edad del votante.
+     * @param fechaNacimiento Fecha de nacimiento del votante.
+     * @param genero Género del votante.
+     * @param ocupacion Ocupación del votante.
+     */
+    constructor(nombre: string, edad: number, fechaNacimiento: string, genero: string, ocupacion: string) {
+      super(nombre, edad);
+      this.fechaNacimiento = fechaNacimiento;
+      this.genero = genero;
+      this.ocupacion = ocupacion;
+    }
+
+    // Getter methods para los atributos de la clase Votante
+    public getFechaNacimiento(): string {
+      return this.fechaNacimiento;
+    }
+
+    public getGenero(): string {
+      return this.genero;
+    }
+
+    public getOcupacion(): string {
+      return this.ocupacion;
+    }
+  }
+}
+
