@@ -7,11 +7,6 @@ namespace Dominio.Votacion.entities {
       private idCandidato: number;
       private validado: boolean;
 
-    /**
-     * Método para obtener todos los votos validados.
-     * @param votos Array de votos.
-     * @returns Un nuevo array con los votos validados.
-     */
     static obtenerVotosValidados(votos: Voto[]): Voto[] {
       return votos.filter((voto) => voto.validado);
     }
@@ -28,11 +23,6 @@ namespace Dominio.Votacion.entities {
       private idCandidato: number;
       private validado: boolean;
 
-    /**
-     * Método para contar el número total de votos.
-     * @param votos Array de votos.
-     * @returns El número total de votos.
-     */
     static contarVotos(votos: Voto[]): number {
       let totalVotos = 0;
       for (const voto of votos) {
@@ -52,11 +42,6 @@ namespace Dominio.Votacion.entities {
       private idCandidato: number;
       private validado: boolean;
 
-    /**
-     * Método para encontrar el candidato más votado.
-     * @param votos Array de votos.
-     * @returns El ID del candidato más votado o null si no hay votos.
-     */
     static encontrarCandidatoMasVotado(votos: Voto[]): number | null {
       if (votos.length === 0) {
         return null;
