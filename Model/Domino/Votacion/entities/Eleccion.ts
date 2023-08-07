@@ -17,7 +17,32 @@ namespace Dominio.Votacion.entities {
     }
 
     // Getter methods
-    // Implement getter methods here
+    getIdVoto(): number {
+      return this.idVoto;
+    }
+
+    getIdVotante(): number {
+      return this.idVotante;
+    }
+
+    getIdCandidato(): number {
+      return this.idCandidato;
+    }
+
+    isValidado(): boolean {
+      return this.validado;
+    }
+  }
+}
+
+
+// Clase para representar el voto
+namespace Dominio.Votacion.entities {
+  interface Voto {
+    idVoto: number;
+    idVotante: number;
+    idCandidato: number;
+    validado: boolean;
   }
 }
 
@@ -25,7 +50,30 @@ namespace Dominio.Votacion.entities {
 namespace Dominio.Votacion.services {
   class ServicioVotos {
     static encontrarCandidatoMasVotado(votos: Voto[]): number | null {
-      // Implementación para encontrar el candidato más votado (código previo)
+      if (votos.length === 0) {
+        return null;
+      }
+
+      const votosPorCandidato: { [idCandidato: number]: number } = {};
+      let candidatoMasVotado = votos[0].idCandidato;
+      let votosMasAltos = 0;
+
+      for (const voto of votos) {
+        const idCandidato = voto.idCandidato;
+        if (!votosPorCandidato[idCandidato]) {
+          votosPorCandidato[idCandidato] = 1;
+        } else {
+          votosPorCandidato[idCandidato]++;
+        }
+
+        if (votosPorCandidato[idCandidato] > votosMasAltos) {
+          votosMasAltos = votosPorCandidato[idCandidato];
+          candidatoMasVotado = idCandidato;
+        }
+      }
+
+      return candidatoMasVotado;
     }
   }
 }
+
